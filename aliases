@@ -1,6 +1,6 @@
 # Uncomment one of the next two lines to make the aliases use podman or docker.
-CONTAINER_PROG=docker
-# CONTAINER_PROG=podman
+# CONTAINER_PROG=docker
+CONTAINER_PROG=podman
 
 function cdo
 {
