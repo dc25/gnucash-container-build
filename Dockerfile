@@ -15,7 +15,14 @@ LABEL maintainer "Siddharth Kannan <mail@siddharthkannan.in>"
 COPY install_gnucash_dependencies.sh /tmp
 RUN /tmp/install_gnucash_dependencies.sh
 
+env WORKAREA /src
+env SRCDIR $WORKAREA/gnucash
+env BUILDDIR $WORKAREA/build
+
+COPY checkout_gnucash_source.sh /tmp
+RUN /tmp/checkout_gnucash_source.sh $SRCDIR 
+
 COPY build_gnucash.sh /tmp
-RUN /tmp/build_gnucash.sh
+RUN /tmp/build_gnucash.sh $SRCDIR $BUILDDIR
 
 ENTRYPOINT ["/src/build/bin/gnucash"]

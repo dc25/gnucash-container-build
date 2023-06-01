@@ -31,3 +31,12 @@ apt install -y  \
     libboost-program-options-dev \
     libboost-system-dev 
 
+# for sql
+apt install -y  \
+    libdbd-sqlite3 
+
+# for AQBANKING
+apt install -y  \
+    libgwenhywfar-core-dev \
+    libaqbanking-dev \
+    libgwengui-gtk3-dev 
