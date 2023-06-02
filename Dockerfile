@@ -1,7 +1,17 @@
-# Run GnuCash in a container
+# Build/Install/Run GnuCash in a container
+#
+# Using aliases from "aliases" file, run with:
+# crun gc gnucash
+# (where "gc" is the name of the image build)
 #
 
-FROM docker.io/library/ubuntu:23.04
+# Choose a base
+FROM docker.io/library/ubuntu:22.04
+# FROM docker.io/library/ubuntu:23.04
+
+# Install required utilities and libraries
+# This is done as individual RUN commands to facilitate 
+# starting over at point of failure (in case of failure).
 
 RUN apt update -y 
 RUN apt upgrade -y 
@@ -37,16 +47,18 @@ RUN apt install -y libgwenhywfar-core-dev
 RUN apt install -y libaqbanking-dev 
 RUN apt install -y libgwengui-gtk3-dev 
 
+# configuration variables
 env WORKAREA /src
 env BUILDDIR $WORKAREA/build
 env SRCDIR $WORKAREA/gnucash
 
+# get the source
 RUN git clone https://github.com/Gnucash/gnucash.git $SRCDIR
 
+# build and install
 RUN mkdir -p $BUILDDIR
 WORKDIR $BUILDDIR
 RUN cmake $SRCDIR
 RUN make 
 RUN make install
-# RUN make check
 
